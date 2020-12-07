@@ -1,0 +1,84 @@
+﻿<Page x:Class="AuthorRaitingSystem.Pages.PageScienceSearchLong"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AuthorRaitingSystem.Pages"
+      xmlns:controls="clr-namespace:Controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="180" d:DesignWidth="800"
+      Title="PageStudySearchLong">
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF657851" Offset="0"/>
+                <GradientStop Color="#FFAAEEAF" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.ColumnSpan="2" HorizontalAlignment="Center" FontWeight="Bold">Научные издания</Label>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <Label FontSize="12" Margin="10 5 10 0">Вид издания:</Label>
+                <Label FontSize="12" Margin="10 5 10 0">Форма издания:</Label>
+                <Label FontSize="12" Margin="10 5 10 0">Гриф издания:</Label>
+                <Label FontSize="12" Margin="10 5 10 0">Фамилия автора*:</Label>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <ComboBox x:Name="cb_type" FontSize="12" Margin="10 10 10 0" DockPanel.Dock="Top" MaxDropDownHeight="300"></ComboBox>
+                <ComboBox x:Name="cb_form" FontSize="12" Margin="10 10 10 0" DockPanel.Dock="Top" MaxDropDownHeight="300"></ComboBox>
+                <ComboBox x:Name="cb_classification" FontSize="12" Margin="10 10 10 0" DockPanel.Dock="Top" MaxDropDownHeight="300"></ComboBox>
+                <controls:TextBoxDropDownHintControl Height="22" x:Name="tb_author" FontSize="12" Margin="10 5 10 0" 
+                                                     SelectedValuePath="id" DisplayMemberPath="name"></controls:TextBoxDropDownHintControl>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <Label FontSize="12" Margin="10 5 10 0">Структ. подр-ние*:</Label>
+                <Label FontSize="12" Margin="10 5 10 0">Название*:</Label>
+                <Label FontSize="12" Margin="10 5 10 0">Дата выхода:</Label>
+                <Label FontSize="12" Margin="10 5 10 0">Имя автора:</Label>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <controls:TextBoxDropDownHintControl Height="22" x:Name="tb_structure_unit" FontSize="12" Margin="10 5 10 0" 
+                                                     SelectedValuePath="id" DisplayMemberPath="name"></controls:TextBoxDropDownHintControl>
+                <controls:TextBoxDropDownHintControl Height="22" x:Name="tb_title" FontSize="12" Margin="10 10 10 0" 
+                                                     SelectedValuePath="id" DisplayMemberPath="name"></controls:TextBoxDropDownHintControl>
+                <TextBox x:Name="tb_publication_date" FontSize="12" Margin="10 10 10 0" DockPanel.Dock="Top"></TextBox>
+                <TextBox x:Name="tb_author_name" FontSize="12" Margin="10 10 10 0" DockPanel.Dock="Top"></TextBox>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Height="25" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 10 4">
+            <Button Width="150" Margin="10 0 0 0" IsDefault="True" Click="Find">Найти</Button>
+            <Button Width="150" Margin="10 0 0 0" Click="ClearFilters">Очистить фильтры</Button>
+            <Popup x:Name="popupNoFilters" StaysOpen="False" Placement="Left" MaxWidth="200" MaxHeight="50" 
+                   AllowsTransparency="True" PopupAnimation="Fade">
+                <TextBlock TextWrapping="Wrap" Width="200" Height="50" Background="LightPink" FontSize="14" FontWeight="Bold"
+                               TextAlignment="Center" Opacity="0.9">Не были указаны фильтры для поиска!</TextBlock>
+            </Popup>
+            <Popup x:Name="popupNotFound" StaysOpen="False" Placement="Left" MaxWidth="200" MaxHeight="50" AllowsTransparency="True" PopupAnimation="Fade">
+                <TextBlock TextWrapping="Wrap" Width="200" Height="30" Background="LightPink" FontSize="14" FontWeight="Bold"
+                               TextAlignment="Center" Opacity="0.9">Поиск не дал результатов!</TextBlock>
+            </Popup>
+        </StackPanel>
+    </Grid>
+</Page>

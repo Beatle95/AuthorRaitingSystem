@@ -1,0 +1,160 @@
+﻿<Page x:Class="AuthorRaitingSystem.PageStudyBookDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AuthorRaitingSystem"
+      xmlns:controls="clr-namespace:Controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="600"
+      Title="PageStudyBookDetails" FontSize="12" KeyDown="_KeyDown">
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <ScrollViewer>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel HorizontalAlignment="Stretch" Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.6*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="0.6*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" Margin="0 25 0 0" Width="80" HorizontalAlignment="Left">
+                            <Button x:Name="b_Add" Height="25" Visibility="Hidden" Click="bAddClick">Редактировать</Button>
+                            <Button x:Name="b_Delete" Height="25" Visibility="Hidden" Click="b_Delete_Pressed">Удалить</Button>
+                        </StackPanel>
+                        
+                        <Label Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold">Учебное издание</Label>
+
+                        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0 25 0 0">
+                            <Label Height="30" HorizontalAlignment="Right">Вид издания:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Форма издания:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Название издания:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Гриф издания:</Label>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0 25 0 0">
+                            <ComboBox x:Name="cb_type" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsHitTestVisible="False"></ComboBox>
+                            <ComboBox x:Name="cb_form" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsHitTestVisible="False" SelectionChanged="cb_form_Update"/>
+                            <TextBox x:Name="tb_title" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <ComboBox x:Name="cb_classification" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsHitTestVisible="False"></ComboBox>
+                        </StackPanel>
+
+                        <Label Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold">Авторский коллектив</Label>
+
+                        <DataGrid x:Name="dataGrid" Grid.ColumnSpan="1" Grid.Row="1" Grid.Column="1" Margin="0 25 0 0" Height="100"
+                                  AutoGenerateColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" 
+                                  IsReadOnly="True" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Path=name}" Width="1*"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=family_name}" Width="1*"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=middle_name}" Width="1*"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Label Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold">Предназначение</Label>
+
+                        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" Margin="0 25 0 0">
+                            <Label Height="30" HorizontalAlignment="Right">Структурное подразделение:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Специальность:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Уровень образования:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Дисциплина:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Раздел дисциплины:</Label>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical" Margin="0 25 0 0">
+                            <ComboBox x:Name="cb_structure_unit" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsHitTestVisible="False"></ComboBox>
+                            <ComboBox x:Name="cb_speciality" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsHitTestVisible="False"></ComboBox>
+                            <ComboBox x:Name="cb_education_level" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsHitTestVisible="False"></ComboBox>
+                            <controls:TextBoxDropDownHintControl x:Name="tb_discipline" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></controls:TextBoxDropDownHintControl>
+                            <TextBox x:Name="tb_discipline_unit" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                        </StackPanel>
+
+                        <Label Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold">Выпускные данные</Label>
+
+                        <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Vertical" Margin="0 25 0 0">
+                            <Label x:Name="l_signing_date" Height="30" HorizontalAlignment="Right">Дата подписания в печать:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Дата выхода издания:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Тираж:</Label>
+                            <Label x:Name="l_paper_format" Height="30" HorizontalAlignment="Right">Формат бумаги:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Издательский номер:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Номер заказа:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Номер рецензии:</Label>
+                            <Label x:Name="l_presswork_count" Height="30" HorizontalAlignment="Right">Объем в печатных листах:</Label>
+                            <Label x:Name="l_formal_presswork_count" Height="30" HorizontalAlignment="Right">Объем в усл.-печатных листах:</Label>
+                            <Label x:Name="l_publication_account_count" Height="30" HorizontalAlignment="Right">Объем в уч.-издательских листах:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Объем в авторских листах:</Label>
+                            <Label x:Name="l_mb_count" Height="30" HorizontalAlignment="Right">Объем данных в мегабайтах:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Юридическое имя издателя:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Юридический адрес:</Label>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Vertical" Margin="0 25 0 0">
+                            <DatePicker x:Name="dp_signing_date" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsHitTestVisible="False"></DatePicker>
+                            <TextBox x:Name="tb_publication_date" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_publication_count" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True" PreviewTextInput="NumberValidationTextBox"></TextBox>
+                            <TextBox x:Name="tb_paper_format" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_publication_number" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_order_number" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_review_number" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_presswork_count" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_formal_presswork_count" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_publication_account_count" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_publication_author_count" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_mb_count" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <controls:TextBoxDropDownHintControl x:Name="tb_publisher_name" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></controls:TextBoxDropDownHintControl>
+                            <controls:TextBoxDropDownHintControl x:Name="tb_publisher_address" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></controls:TextBoxDropDownHintControl>
+                        </StackPanel>
+
+                        <Label Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold">Выпускные данные</Label>
+
+                        <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Vertical" Margin="0 25 0 0">
+                            <Label Height="30" HorizontalAlignment="Right">УДК:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">ББК:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">ISSN:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">ISBN:</Label>
+                            <Label Height="30" HorizontalAlignment="Right">Инвентарный номер:</Label>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Vertical" Margin="0 25 0 0">
+                            <TextBox x:Name="tb_udk" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_bbk" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_issn" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_isbn" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                            <TextBox x:Name="tb_asset_number" Height="25" VerticalAlignment="Top" Margin="5 5 5 0" IsReadOnly="True"></TextBox>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="b_save" Width="90" Height="25" VerticalAlignment="Bottom"
+                    Margin="10" Visibility="Hidden" Click="b_save_Click">Сохранить</Button>
+            <Button x:Name="b_edit" Width="90" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                    Margin="10" IsEnabled="False" Click="b_edit_Click">Редактировать</Button>
+            <Button x:Name="b_delete" Width="120" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                    Margin="10" IsEnabled="False" Click="bDeleteClick">Удалить элемент</Button>
+            <Button x:Name="b_close" Width="90" Height="25" VerticalAlignment="Bottom"
+                    Margin="10" Click="b_close_Click">Закрыть</Button>
+        </StackPanel>
+    </Grid>
+</Page>

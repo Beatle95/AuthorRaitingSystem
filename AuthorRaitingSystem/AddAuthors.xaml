@@ -1,0 +1,96 @@
+﻿<Window x:Class="AuthorRaitingSystem.AddAuthors"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AuthorRaitingSystem"
+        mc:Ignorable="d"
+        Title="Добавить авторов" Height="450" Width="600" MinHeight="450" MinWidth="600" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="8">
+                <Label HorizontalAlignment="Center">Фамилия:</Label>
+                <TextBox x:Name="tb_family_name" KeyDown="tb_keyDown"></TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="8">
+                <Label HorizontalAlignment="Center">Имя:</Label>
+                <TextBox x:Name="tb_name" KeyDown="tb_keyDown"></TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Vertical" Margin="8">
+                <Label HorizontalAlignment="Center">Отчество:</Label>
+                <TextBox x:Name="tb_middle_name" KeyDown="tb_keyDown"></TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                <Button Margin="0 0 8 5" Click="Button_Click_1" FontWeight="DemiBold">Найти</Button>
+                <Button Margin="0 5 8 0" Click="Button_Click">Создать автора</Button>
+            </StackPanel>
+            <Popup x:Name="popupNotFound" StaysOpen="False" Placement="Center" MaxWidth="200" MaxHeight="50" AllowsTransparency="True" PopupAnimation="Fade">
+                <TextBlock TextWrapping="Wrap" Width="200" Height="30" Background="LightPink" FontSize="14" FontWeight="Bold"
+                               TextAlignment="Center" Opacity="0.9">Поиск не дал результатов!</TextBlock>
+            </Popup>
+            <Popup x:Name="popupAlredyAdded" StaysOpen="False" Placement="Center" MaxWidth="200" MaxHeight="50" AllowsTransparency="True" PopupAnimation="Fade">
+                <TextBlock TextWrapping="Wrap" Width="200" Height="40" Background="LightPink" FontSize="14" FontWeight="Bold"
+                               TextAlignment="Center" Opacity="0.9">Автор уже добавлен в список</TextBlock>
+            </Popup>
+        </Grid>
+
+        <DockPanel Grid.Row="1">
+            <Label HorizontalAlignment="Center" FontWeight="DemiBold" DockPanel.Dock="Top">Результаты поиска</Label>
+            <DataGrid x:Name="searchGrid" Margin="8" AutoGenerateColumns="False" CanUserResizeRows="False"
+                      CanUserReorderColumns="False" IsReadOnly="True" SelectionMode="Single" MouseDoubleClick="searchGrid_mouseDoubleClick">
+                
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id" Binding="{Binding Path=id}" Width="0.4*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=family_name}" Width="1*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Path=name}" Width="1*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Отчество" Binding="{Binding Path=middle_name}" Width="1*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1" Grid.Column="2">
+            <Label HorizontalAlignment="Center" FontWeight="DemiBold" DockPanel.Dock="Top">Добавленные авторы</Label>
+            <DataGrid x:Name="acceptGrid" Margin="8" AutoGenerateColumns="False" CanUserResizeRows="False" 
+                      CanUserReorderColumns="False" IsReadOnly="True" SelectionMode="Single" MouseDoubleClick="acceptGrid_mouseDoubleClick">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id" Binding="{Binding Path=id}" Width="0.4*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=family_name}" Width="1*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Path=name}" Width="1*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Отчество" Binding="{Binding Path=middle_name}" Width="1*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+            <Button Content=">" Click="Button_Click_2"></Button>
+            <Button Content="&lt;" Click="Button_Click_3"></Button>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="b_accept" Width="100" Margin="5 0 5 5" Click="b_accept_Click">Подтвердить</Button>
+            <Button x:Name="b_close" Width="100" Margin="5 0 5 5" Click="b_close_Click">Закрыть</Button>
+        </StackPanel>
+    </Grid>
+</Window>

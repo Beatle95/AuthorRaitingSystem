@@ -1,0 +1,396 @@
+CREATE SCHEMA `author_raiting_system` ;
+
+USE author_raiting_system;
+
+CREATE TABLE `author_raiting_system`.`study_publication` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `type` INT NOT NULL,
+  `form` INT NOT NULL,
+  `title` VARCHAR(500) NOT NULL DEFAULT 'неопределенное название',
+  `classification` INT NOT NULL,
+  `structure_unit` INT NOT NULL,
+  `speciality` INT NOT NULL,
+  `education_level` INT NULL,
+  `discipline` INT NOT NULL,
+  `discipline_unit` VARCHAR(500) NULL,
+  `signing_date` DATE NULL,
+  `publication_date` VARCHAR(10) NULL,
+  `publication_count` INT UNSIGNED NULL,
+  `paper_format` VARCHAR(20) NULL,
+  `publication_number` VARCHAR(20) NULL,
+  `order_number` VARCHAR(20) NULL,
+  `review_number` VARCHAR(20) NULL,
+  `presswork_count` VARCHAR(10) NULL,
+  `formal_presswork_count` VARCHAR(10) NULL,
+  `publication_account_count` VARCHAR(10) NULL,
+  `publication_author_count` VARCHAR(10) NULL,
+  `mb_count` VARCHAR(10) NULL,
+  `publisher_name` INT NOT NULL,
+  `publisher_address` INT NOT NULL,
+  `udk` VARCHAR(50) NULL,
+  `bbk` VARCHAR(50) NULL,
+  `issn` VARCHAR(50) NULL,
+  `isbn` VARCHAR(50) NULL,
+  `asset_number` VARCHAR(50) NULL,
+  PRIMARY KEY (`id`));
+  
+  CREATE TABLE `author_raiting_system`.`science_publication` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `type` INT NOT NULL,
+  `form` INT NOT NULL,
+  `title` VARCHAR(500) NOT NULL DEFAULT 'неопределенное название',
+  `part_number` VARCHAR(30) NULL,
+  `classification` INT NOT NULL,
+  `structure_unit` INT NOT NULL,
+  `signing_date` DATE NULL,
+  `publication_date` VARCHAR(10) NULL,
+  `publication_count` INT UNSIGNED NULL,
+  `paper_format` VARCHAR(20) NULL,
+  `publication_number` VARCHAR(20) NULL,
+  `order_number` VARCHAR(20) NULL,
+  `review_number` VARCHAR(20) NULL,
+  `presswork_count` VARCHAR(10) NULL,
+  `formal_presswork_count` VARCHAR(10) NULL,
+  `publication_account_count` VARCHAR(10) NULL,
+  `publication_author_count` VARCHAR(10) NULL,
+  `mb_count` VARCHAR(10) NULL,
+  `publisher_name` INT NOT NULL,
+  `publisher_address` INT NOT NULL,
+  `udk` VARCHAR(50) NULL,
+  `bbk` VARCHAR(50) NULL,
+  `issn` VARCHAR(50) NULL,
+  `isbn` VARCHAR(50) NULL,
+  `asset_number` VARCHAR(50) NULL,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`structure_unit` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `number` INT NULL,
+  `name` VARCHAR(500) NOT NULL,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`speciality` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(500) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`study_publication_type` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(500) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`science_publication_type` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(500) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`publication_form` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(500) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`publication_classification` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(500) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`author` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `family_name` VARCHAR(100) NOT NULL,
+  `name` VARCHAR(100) NULL,
+  `middle_name` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`discipline` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(500) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`author_study_publication` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `author_id` INT NOT NULL,
+  `publication_id` INT NOT NULL,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`author_science_publication` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `author_id` INT NOT NULL,
+  `publication_id` INT NOT NULL,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`publisher_name` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(500) NOT NULL,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `author_raiting_system`.`publisher_address` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(500) NOT NULL,
+  PRIMARY KEY (`id`));
+
+
+ALTER TABLE `author_raiting_system`.`author_science_publication` 
+ADD INDEX `author_id_science_idx` (`author_id` ASC) VISIBLE,
+ADD INDEX `publication_id_science_idx` (`publication_id` ASC) VISIBLE;
+;
+ALTER TABLE `author_raiting_system`.`author_science_publication` 
+ADD CONSTRAINT `author_id_science`
+  FOREIGN KEY (`author_id_science`)
+  REFERENCES `author_raiting_system`.`author` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `publication_id_science`
+  FOREIGN KEY (`publication_id_science`)
+  REFERENCES `author_raiting_system`.`science_publication` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE `author_raiting_system`.`author_study_publication` 
+ADD INDEX `author_id_study_idx` (`author_id` ASC) VISIBLE,
+ADD INDEX `publication_id_study_idx` (`publication_id` ASC) VISIBLE;
+;
+ALTER TABLE `author_raiting_system`.`author_study_publication` 
+ADD CONSTRAINT `author_id_study`
+  FOREIGN KEY (`author_id`)
+  REFERENCES `author_raiting_system`.`author` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `publication_id_study`
+  FOREIGN KEY (`publication_id`)
+  REFERENCES `author_raiting_system`.`study_publication` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE `author_raiting_system`.`study_publication` 
+ADD INDEX `type_study_idx` (`type` ASC) VISIBLE,
+ADD INDEX `form_study_idx` (`form` ASC) VISIBLE,
+ADD INDEX `classification_study_idx` (`classification` ASC) VISIBLE,
+ADD INDEX `structure_unit_idx` (`structure_unit` ASC) VISIBLE,
+ADD INDEX `speciality_study_idx` (`speciality` ASC) VISIBLE,
+ADD INDEX `discipline_study_idx` (`discipline` ASC) VISIBLE,
+ADD INDEX `publisher_name_study_idx` (`publisher_name` ASC) VISIBLE,
+ADD INDEX `publisher_address_study_idx` (`publisher_address` ASC) VISIBLE;
+;
+ALTER TABLE `author_raiting_system`.`study_publication` 
+ADD CONSTRAINT `type_study`
+  FOREIGN KEY (`type`)
+  REFERENCES `author_raiting_system`.`study_publication_type` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `form_study`
+  FOREIGN KEY (`form`)
+  REFERENCES `author_raiting_system`.`publication_form` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `classification_study`
+  FOREIGN KEY (`classification`)
+  REFERENCES `author_raiting_system`.`publication_classification` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `structure_unit_study`
+  FOREIGN KEY (`structure_unit`)
+  REFERENCES `author_raiting_system`.`structure_unit` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `speciality_study`
+  FOREIGN KEY (`speciality`)
+  REFERENCES `author_raiting_system`.`speciality` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `discipline_study`
+  FOREIGN KEY (`discipline`)
+  REFERENCES `author_raiting_system`.`discipline` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `publisher_name_study`
+  FOREIGN KEY (`publisher_name`)
+  REFERENCES `author_raiting_system`.`publisher_name` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `publisher_address_study`
+  FOREIGN KEY (`publisher_address`)
+  REFERENCES `author_raiting_system`.`publisher_address` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE `author_raiting_system`.`science_publication` 
+ADD INDEX `type_science_idx` (`type` ASC) VISIBLE,
+ADD INDEX `form_science_idx` (`form` ASC) VISIBLE,
+ADD INDEX `classification_science_idx` (`classification` ASC) VISIBLE,
+ADD INDEX `structure_unit_science_idx` (`structure_unit` ASC) VISIBLE,
+ADD INDEX `publisher_name_science_idx` (`publisher_name` ASC) VISIBLE,
+ADD INDEX `publisher_address_science_idx` (`publisher_address` ASC) VISIBLE;
+;
+ALTER TABLE `author_raiting_system`.`science_publication` 
+ADD CONSTRAINT `type_science`
+  FOREIGN KEY (`type`)
+  REFERENCES `author_raiting_system`.`science_publication_type` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `form_science`
+  FOREIGN KEY (`form`)
+  REFERENCES `author_raiting_system`.`publication_form` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `classification_science`
+  FOREIGN KEY (`classification`)
+  REFERENCES `author_raiting_system`.`publication_classification` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `structure_unit_science`
+  FOREIGN KEY (`structure_unit`)
+  REFERENCES `author_raiting_system`.`structure_unit` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `publisher_name_science`
+  FOREIGN KEY (`publisher_name`)
+  REFERENCES `author_raiting_system`.`publisher_name` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `publisher_address_science`
+  FOREIGN KEY (`publisher_address`)
+  REFERENCES `author_raiting_system`.`publisher_address` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+INSERT INTO science_publication_type (name)
+VALUES ('Монография'),('Сборник научных трудов'),
+('Материалы конференции (съезда, симпозиума)'),
+('Препринт'),('Пролегомены, введения'),
+('Тезисы докладов / сообщений научной конференции (съезда, симпозиума)'),
+('Автореферат диссертации');
+
+
+INSERT INTO study_publication_type (name)
+VALUES ('Учебник'),
+('Букварь'),
+('Учебное пособие'),
+('Учебно-методическое пособие'),
+('Учебно-наглядное пособие'),
+('Рабочая тетрадь'),
+('Самоучитель'),
+('Хрестоматия'),
+('Практикум'),
+('Задачник'),
+('Учебная программа'),
+('Учебный комплект'),
+('Справочник');
+
+
+INSERT INTO publication_form (name)
+VALUES ('Печатное'),
+('Электронное (текстовое)'),
+('Электронное (аудиоиздание)'),
+('Электронное (изобразительное)'),
+('Электронное (мультимедийное)');
+
+
+INSERT INTO publication_classification (name)
+VALUES ('Несекретно'),
+('Для служебного пользования'),
+('Секретно'),
+('Совершенно секретно'),
+('Особой важности');
+
+
+INSERT INTO structure_unit (number,name)
+VALUES (311, 'Кафедра ядерных энергетических установок'),
+(312, 'Кафедра (корабельных систем управления)'),
+(321, 'Кафедра военного кораблестроения'),
+(322, 'Кафедра водолазной подготовки и судоподъема'),
+(331, 'Кафедра паровых турбин'),
+(332, 'Кафедра (газовых турбинных установок)'),
+(333, 'Кафедра радиационной, химической и биологической защиты'),
+(341, 'Кафедра (дизельных установок)'),
+(342, 'Кафедра (теории электротехники, электрических машин и аппаратов)'),
+(343, 'Кафедра электроэнергетических систем кораблей'),
+(344, 'Кафедра физических полей и защиты кораблей'),
+(411, 'Кафедра (радиолокационных и оптикоэлектронных средств ВМФ)'),
+(412, 'Кафедра гидроакустики'),
+(414, 'Кафедра боевого применения (средств наблюдения)'),
+(421, 'Кафедра (боевого применения автоматизированных систем и средств управления)'),
+(422, 'Кафедра (интегрированных систем боевого управления кораблем)'),
+(301, 'Кафедра (устройства и живучести подводной лодки)'),
+(302, 'Кафедра физики'),
+(303, 'Кафедра химии'),
+(304, 'Кафедра механики и гидромеханики'),
+(305, 'Кафедра (начертательной геометрии и инженерной графики)'),
+(401, 'Кафедра устройства и живучести корабля'),
+(402, 'Кафедра математики'),
+(403, 'Кафедра (радиоэлектроники)'),
+(404, 'Кафедра метрологии и радиоизмерений'),
+(405, 'Кафедра информационных технологий'),
+(002, 'Тактики (ВМФ)'),
+(005, 'Физической подготовки'),
+(019, 'Радиоэлектронной борьбы (ВМФ)'),
+(029, 'Военно-экономического обеспечения ВМФ и военной экономики'),
+(106, 'Боевого применения средств связи'),
+(202, 'Организации повседневной деятельности, боевой подготовки и морской практики'),
+(203, 'Гуманитарных и социально экономических дисциплин'),
+(204, 'Иностранных языков'),
+(211, 'Кораблевождения'),
+(701, 'Русского языка'),
+(011, 'Истории войн и военного искусства'),
+(018, 'Международного морского права'),
+(028, 'Морально-психологического обеспечения'),
+(0, 'Отсутствует');
+
+
+INSERT INTO speciality (name)
+VALUES ('Эксплуатации атомных энергетических установок кораблей'),
+('Поисково-спасательное обеспечение сил флота'),
+('Строительство и ремонт подводных лодок'),
+('Строительство и ремонт надводных кораблей'),
+('Применение и эксплуатация вооружения и средств радиационной, химической и биологической защиты корабля'),
+('Эксплуатация паросиловых и газотурбинных энергетических установок кораблей'),
+('Эксплуатация электроэнергетических систем кораблей'),
+('Эксплуатация корабельных дизель-электрических и дизельных энергетических установок'),
+('Применение и эксплуатация гидроакустических средств кораблей'),
+('Применение и эксплуатация радиотехнических средств кораблей'),
+('Применение и эксплуатация средств радиоэлектронной борьбы сил флота'),
+('Применение и эксплуатация АСУ сил флота'),
+('Эксплуатация корабельных боевых информационных управляющих систем'),
+('Эксплуатация и ремонт общекорабельных систем подводных лодок'),
+('Эксплуатация и ремонт паротурбинных установок кораблей с АЭУ'),
+('Эксплуатация и ремонт водолазных и глубоководных средств'),
+('Эксплуатация и ремонт дизельных энергетических установок'),
+('Эксплуатация и ремонт турбинных установок надводных кораблей'),
+('Эксплуатация и ремонт средств РХБ защиты'),
+('Эксплуатация и ремонт систем автоматизированного управления техническими средствами кораблей'),
+('Эксплуатация и ремонт корабельного электрооборудования'),
+('Эксплуатация и ремонт корабельных радиолокационных систем и комплексов'),
+('Эксплуатация и ремонт гидроакустических средств кораблей'),
+('Эксплуатация и ремонт боевых информационных управляющих систем'),
+('Эксплуатация и ремонт электронно-вычислительных машин');
+
+
+INSERT INTO `author_raiting_system`.`publisher_name` (`name`) VALUES ('Военно-морской политехнический институт ВУНЦ ВМФ \"Военно-морская академия\"');
+
+
+INSERT INTO `author_raiting_system`.`publisher_address` (`address`) VALUES ('г. Санкт-Петербург, г. Пушкин, Кадетский бульвар, дом 1');
+
+CREATE TABLE `author_raiting_system`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `login` VARCHAR(50) NULL,
+  `password` VARCHAR(200) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE);
+  
+INSERT INTO users (login, password)
+VALUES ('admin', '19a2854144b63a8f7617a6f225019b12');

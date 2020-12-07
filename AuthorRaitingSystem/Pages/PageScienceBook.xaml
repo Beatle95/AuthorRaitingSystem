@@ -1,0 +1,56 @@
+﻿<Page x:Class="AuthorRaitingSystem.PageScienceBook"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AuthorRaitingSystem"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="600"
+      Title="PageScienceBook" Background="#7F8BB899">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="DataGridRow_1" Height="180"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition x:Name="DataGridRow_2" Height="35"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Popup x:Name="popupNotSelected" StaysOpen="False" MaxWidth="200" MaxHeight="50" 
+               AllowsTransparency="True" PopupAnimation="Fade" Placement="Center">
+            <TextBlock TextWrapping="Wrap" Width="200" Height="40" Background="LightPink" FontSize="14" FontWeight="Bold"
+                               TextAlignment="Center" Opacity="0.9">Сначала выберите элемент из списка.</TextBlock>
+        </Popup>
+        <Popup x:Name="popupDataGridEmpty" StaysOpen="False" MaxWidth="200" MaxHeight="50" 
+               AllowsTransparency="True" PopupAnimation="Fade" Placement="Center">
+            <TextBlock TextWrapping="Wrap" Width="200" Height="40" Background="LightPink" FontSize="14" FontWeight="Bold"
+                               TextAlignment="Center" Opacity="0.9">Не найдено элементов для записи в файл.</TextBlock>
+        </Popup>
+
+        <Frame x:Name="frameSearch" Grid.Row="0"></Frame>
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray"
+                        RowBackground="#FFE8E8E8" AlternatingRowBackground="White" FontSize="12" Grid.Row="1" Margin="5 0 5 0"
+                        CanUserResizeRows="False" CanUserReorderColumns="False" IsReadOnly="True" SelectionMode="Single" 
+                        HorizontalScrollBarVisibility="Visible" MouseDoubleClick="dataGrid_mouseDoubleClick">
+            <DataGrid.Background>
+                <ImageBrush ImageSource="book1.png" Stretch="None" Opacity="0.3"/>
+            </DataGrid.Background>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Вид" Binding="{Binding Path=type}" Width="Auto" MaxWidth="300" MinWidth="40"></DataGridTextColumn>
+                <DataGridTextColumn Header="Форма" Binding="{Binding Path=form}" Width="Auto" MaxWidth="300" MinWidth="40"></DataGridTextColumn>
+                <DataGridTextColumn Header="Гриф" Binding="{Binding Path=classification}" Width="Auto" MaxWidth="300" MinWidth="40"></DataGridTextColumn>
+                <DataGridTextColumn Header="Название" Binding="{Binding Path=title}" Width="Auto" MaxWidth="300" MinWidth="40"></DataGridTextColumn>
+                <DataGridTextColumn Header="Номер части издания" Binding="{Binding Path=part_number}" Width="Auto" MaxWidth="300" MinWidth="40"></DataGridTextColumn>
+                <DataGridTextColumn Header="Авторы" Binding="{Binding Path=s_authors}" Width="Auto" MaxWidth="300" MinWidth="40"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата выхода издания в свет" Binding="{Binding Path=publication_date}" Width="Auto" MaxWidth="300" MinWidth="40"></DataGridTextColumn>
+                <DataGridTextColumn Header="Структурное подразделение" Binding="{Binding Path=structure_unit}" Width="Auto" MaxWidth="300" MinWidth="40"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button FontSize="12" Width="110" Margin="0, 5, 5, 5" Click="infoClick">Подробнее</Button>
+            <Button x:Name="b_edit" FontSize="12" Width="110" Margin="5, 5, 5, 5" Click="b_edit_Click">Редактировать</Button>
+            <Button x:Name="b_add" FontSize="12" Width="110" Margin="5, 5, 5, 5" Click="b_add_Click">Добавить</Button>
+            <Button x:Name="b_delete" FontSize="12" Width="110" Margin="5, 5, 5, 5" Click="deleteClick">Удалить</Button>
+            <Button FontSize="12" Width="110" Margin="5, 5, 5, 5" Click="Button_Click">Экспорт в excel</Button>
+        </StackPanel>
+    </Grid>
+</Page>
